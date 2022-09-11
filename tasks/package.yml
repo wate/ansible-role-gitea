@@ -1,0 +1,8 @@
+---
+# install packages tasks file for gitea
+- name: Install dependency packages
+  ansible.builtin.apt:
+    name: "{{ role_dependency_packages }}"
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ role_packages }}"

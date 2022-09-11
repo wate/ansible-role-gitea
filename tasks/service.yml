@@ -1,0 +1,6 @@
+---
+- name: Service gitea is active and enabled on system startup
+  ansible.builtin.systemd:
+    name: gitea
+    state: started
+    enabled: true
