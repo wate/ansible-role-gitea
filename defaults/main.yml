@@ -1,2 +1,3 @@
 ---
-# defaults file for gitea
+gitea_version: latest
+gitea_web_port: 3000

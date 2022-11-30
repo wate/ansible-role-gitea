@@ -1,9 +1,9 @@
 ---
-# - name: Restart gitea
-#   ansible.builtin.systemd:
-#     state: restarted
-#     name: gitea
-# - name: Reload gitea
-#   ansible.builtin.systemd:
-#     state: reloaded
-#     name: gitea
+- name: restart gitea
+  ansible.builtin.systemd:
+    state: restarted
+    name: gitea
+- name: reload gitea
+  ansible.builtin.systemd:
+    state: reloaded
+    name: gitea

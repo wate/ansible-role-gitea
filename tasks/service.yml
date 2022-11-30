@@ -1,4 +1,9 @@
 ---
+- name: Create/update systemd unit file
+  ansible.builtin.template:
+    src: gitea.service.j2
+    dest: /lib/systemd/system/gitea.service
+    mode: "0644"
 - name: Service gitea is active and enabled on system startup
   ansible.builtin.systemd:
     name: gitea

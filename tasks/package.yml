@@ -1,8 +1,25 @@
 ---
-# install packages tasks file for gitea
-- name: Install dependency packages
-  ansible.builtin.apt:
-    name: "{{ role_dependency_packages }}"
-- name: Install packages
-  ansible.builtin.apt:
-    name: "{{ role_packages }}"
+- name: get gitea latest version
+  block:
+    - name: Get latest release
+      ansible.builtin.uri:
+        url: https://dl.gitea.io/gitea/version.json
+        headers:
+          Accept: application/json
+      register: latest_releases
+    - name: Set gitea_version variable
+      ansible.builtin.set_fact:
+        gitea_version: "{{ latest_releases.json.latest.version }}"
+  when: gitea_version == 'latest'
+- name: Set download file variable
+  ansible.builtin.set_fact:
+    download_binary_file: gitea-{{ gitea_version }}-{{ ansible_facts['system'] | lower }}-{{ ansible_facts['kernel'].split('-')[-1] }}
+- name: Install gitea
+  ansible.builtin.get_url:
+    url: https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}
+    dest: "{{ gitea_home }}/gitea"
+    checksum: "sha256:https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}.sha256"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_user }}"
+    mode: "0755"
+  # notify: restart gitea

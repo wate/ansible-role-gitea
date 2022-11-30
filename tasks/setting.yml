@@ -1,15 +1,8 @@
 ---
 - name: Add/update setting file
   ansible.builtin.template:
-    src: gitea.j2
-    dest: /erc/gitea/gitea.conf
-    mode: "0644"
-- name: Add/update custom setting line
-  ansible.builtin.lineinfile:
-    path: /etc/gitea/gitea.conf
-    regexp: "^(#\\s+)?option_name="
-    line: option_name=option_value
-- name: Add/update custom setting block
-  ansible.builtin.blockinfile:
-    path: /etc/gitea/gitea.conf
-    block: "{{ role_extra_cfg }}"
+    src: app.ini.j2
+    dest: "{{ gitea_config_dir }}/app.ini"
+    owner: root
+    group: "{{ gitea_user }}"
+    mode: "0660"

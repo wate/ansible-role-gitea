@@ -13,18 +13,15 @@
 - name: Include variable file
   ansible.builtin.include_vars: "{{ variable_file }}"
   when: variable_file | length > 0
-- name: Install dependency packages
+- name: dependency tasks
   ansible.builtin.import_tasks: dependency.yml
   tags: dependency
-- name: Add repository
-  ansible.builtin.import_tasks: repository.yml
-  tags: repository
 - name: Install packages
   ansible.builtin.import_tasks: package.yml
   tags: package
-- name: Create/update setting
-  ansible.builtin.import_tasks: setting.yml
-  tags: setting
-- name: Setup service
-  ansible.builtin.import_tasks: service.yml
-  tags: service
+# - name: Create/update setting
+#   ansible.builtin.import_tasks: setting.yml
+#   tags: setting
+# - name: Setup service
+#   ansible.builtin.import_tasks: service.yml
+#   tags: service

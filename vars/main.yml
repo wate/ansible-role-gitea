@@ -1,2 +1,6 @@
 ---
-# vars file for gitea
+gitea_user: git
+gitea_home: /opt/gitea
+gitea_root: "{{ gitea_home }}"
+gitea_config_dir: /etc/gitea
+gitea_working_dir: /var/lib/gitea

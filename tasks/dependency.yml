@@ -1,15 +1,39 @@
 ---
-- name: Find task file
-  ansible.builtin.set_fact:
-    include_task_file: "{{ lookup('first_found', params, errors='ignore') }}"
-  vars:
-    params:
-      files:
-        - '{{ ansible_facts.os_family }}/{{ ansible_facts.distribution }}/{{ ansible_facts.distribution_major_version }}.yml'
-        - '{{ ansible_facts.os_family }}/{{ ansible_facts.distribution }}.yml'
-        - '{{ ansible_facts.os_family }}.yml'
-      paths:
-        - tasks/dependency
-- name: Install dependency packages
-  ansible.builtin.include_tasks: "{{ include_task_file }}"
-  when: include_task_file | length > 0
+- name: install dependency packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - git-lfs
+- name: Add gitea user
+  ansible.builtin.user:
+    name: "{{ gitea_user }}"
+    system: true
+    comment: "Git Version Control"
+    home: /home/{{ gitea_user }}
+    password: "*"
+- name: Create install directory
+  ansible.builtin.file:
+    path: "{{ gitea_home }}"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_user }}"
+    state: directory
+    mode: "0755"
+- name: Create config directory
+  ansible.builtin.file:
+    path: "{{ gitea_config_dir }}"
+    owner: root
+    group: "{{ gitea_user }}"
+    state: directory
+    mode: "0770"
+- name: Create working directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_user }}"
+    state: directory
+    mode: "750"
+  loop:
+    - "{{ gitea_working_dir }}"
+    - "{{ gitea_working_dir }}/custom"
+    - "{{ gitea_working_dir }}/data"
+    - "{{ gitea_working_dir }}/log"
