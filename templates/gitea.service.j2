@@ -20,7 +20,7 @@ Type=simple
 User={{ gitea_user}}
 Group={{ gitea_user}}
 WorkingDirectory={{ gitea_working_dir}}/
-ExecStart={{ gitea_home }}/gitea web --config {{ gitea_config_dir }}/app.ini --port {{ gitea_web_port}}
+ExecStart={{ gitea_dest }}/gitea web --config {{ gitea_config_dir }}/app.ini --port {{ gitea_web_port}}
 Restart=always
 Environment=USER={{ gitea_user}}
 Environment=HOME=/home/{{ gitea_user}}
