@@ -8,7 +8,7 @@
   ansible.builtin.user:
     name: "{{ gitea_user }}"
     system: true
-    comment: "Git Version Control"
+    comment: Git Version Control
     home: /home/{{ gitea_user }}
     password: "*"
 - name: Create install directory

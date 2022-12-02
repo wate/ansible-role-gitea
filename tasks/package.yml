@@ -18,7 +18,7 @@
   ansible.builtin.get_url:
     url: https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}
     dest: "{{ gitea_home }}/gitea"
-    checksum: "sha256:https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}.sha256"
+    checksum: sha256:https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}.sha256
     owner: "{{ gitea_user }}"
     group: "{{ gitea_user }}"
     mode: "0755"
