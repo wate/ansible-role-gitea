@@ -25,8 +25,6 @@ Giteaのアプリケーション名
 Giteaの動作モード  
 設定値: dev / prod / test
 
-### `gitea_port`
-
 ### `gitea_internal_token`
 
 Giteaの「INTERNAL_TOKEN」の設定値  
