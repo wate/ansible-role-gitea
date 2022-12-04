@@ -22,6 +22,9 @@
 - name: Create/update setting
   ansible.builtin.import_tasks: setting.yml
   tags: setting
+- name: Setup database
+  ansible.builtin.import_tasks: database.yml
+  tags: database
 - name: Setup service
   ansible.builtin.import_tasks: service.yml
   tags: service

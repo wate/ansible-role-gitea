@@ -4,6 +4,7 @@
     src: gitea.service.j2
     dest: /lib/systemd/system/gitea.service
     mode: "0644"
+  notify: restart gitea
 - name: Service gitea is active and enabled on system startup
   ansible.builtin.systemd:
     name: gitea

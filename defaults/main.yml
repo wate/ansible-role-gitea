@@ -53,6 +53,8 @@ gitea_cfg:
     SCHEMA: ""
     LOG_SQL: false
   server:
+    # # 設定値: http / https / http+unix / fcgi / fcgi+unix
+    # PROTOCOL: http
     HTTP_PORT: "{{ gitea_port }}"
     LOCAL_ROOT_URL: http://localhost:{{ gitea_port }}/
     SSH_DOMAIN: gitea.example.com
@@ -147,7 +149,7 @@ gitea_cfg:
   repository.signing:
     DEFAULT_TRUST_MODEL: committer
   security:
-    INSTALL_LOCK: false
+    INSTALL_LOCK: true
     # パスワードハッシュアルゴリズム
     PASSWORD_HASH_ALGO: pbkdf2
 

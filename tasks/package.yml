@@ -22,4 +22,5 @@
     owner: "{{ gitea_user }}"
     group: "{{ gitea_user }}"
     mode: "0755"
+  register: update_gitea_binary
   notify: restart gitea
