@@ -2,12 +2,10 @@
 Description=Gitea (Git with a cup of tea)
 After=syslog.target
 After=network.target
-{% if hedgedoc_cfg[hedgedoc_mode]['db']['host'] | default('localhost') in ['localhost', '127.0.0.1'] -%}
-{% if hedgedoc_cfg[hedgedoc_mode]['db']['dialect'] == 'mariadb' -%}
-After=mariadb.service
-{% elif hedgedoc_cfg[hedgedoc_mode]['db']['dialect'] == 'mysql' -%}
+{% if gitea_cfg['database']['HOST'].startswith('localhost:') or gitea_cfg['database']['HOST'].startswith('127.0.0.1:') -%}
+{% if gitea_cfg['database']['DB_TYPE'] == 'mysql' -%}
 After=mysql.service
-{% elif hedgedoc_cfg[hedgedoc_mode]['db']['dialect'] == 'postgres' -%}
+{% elif gitea_cfg['database']['DB_TYPE'] == 'postgres' -%}
 After=postgresql.service
 {% endif %}
 {% endif %}

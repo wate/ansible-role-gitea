@@ -11,6 +11,24 @@ gitea_app_name: "Gitea (Git with a cup of tea)"
 ## ----------------
 gitea_mode: prod
 
+gitea_port: 3001
+
+## ----------------
+## Giteaの「INTERNAL_TOKEN」の設定値
+## ※未指定の場合はトークンが自動生成されます
+## ----------------
+gitea_internal_token:
+## ----------------
+## Giteaの「LFS_JWT_SECRET」の設定
+## ※未指定の場合はトークンが自動生成されます
+## ----------------
+gitea_lfs_jwt_secret:
+## ----------------
+## Giteaの「SECRET_KEY」の設定
+## ※未指定の場合はトークンが自動生成されます
+## ----------------
+gitea_secret_key:
+
 ## ----------------
 ## Giteaの設定
 ##
@@ -20,34 +38,35 @@ gitea_mode: prod
 ## https://github.com/go-gitea/gitea/blob/main/custom/conf/app.example.ini
 ## ----------------
 gitea_cfg:
+  database:
+    # mysql / postgres / sqlite3 / mssql
+    DB_TYPE: mysql
+    HOST: 127.0.0.1:3306
+    NAME: gitea
+    USER: gitea
+    PASSWD: gitea_password
+    # MySQL Database only
+    CHARSET: utf8mb4
+    # SQLite only
+    SSL_MODE: false
+    PATH: "{{ gitea_work_dir }}/data/gitea.db"
+    # PostgreSQL Database only
+    SCHEMA: public
+    LOG_SQL: false
   server:
-    HTTP_PORT: 3001
-    LOCAL_ROOT_URL: http://localhost:3001/
+    HTTP_PORT: "{{ gitea_port }}"
+    LOCAL_ROOT_URL: http://localhost:{{ gitea_port }}/
     SSH_DOMAIN: gitea.example.com
     DOMAIN: gitea.example.com
     ROOT_URL: http://gitea.example.com/
     DISABLE_SSH: false
     SSH_PORT: 22
     LFS_START_SERVER: true
-    LFS_JWT_SECRET: "{{ inventory_hostname | hash('sha256') }}"
     OFFLINE_MODE: false
-  database:
-    DB_TYPE: mysql
-    HOST: 127.0.0.1:3306
-    NAME: gitea
-    USER: gitea
-    PASSWD: gitea_password
-    SCHEMA: ""
-    SSL_MODE: disable
-    CHARSET: utf8mb4
-    PATH: "{{ gitea_work_dir }}/data/gitea.db"
-    LOG_SQL: false
-  mailer: {}
-  #   ENABLED: true
-  #   HOST: smtp.example.com
-  #   FROM: gitea@example.com
-  #   USER: ""
-  #   PASSWD: ""
+  mailer:
+    ENABLED: false
+  repository:
+    ROOT: "{{ gitea_work_dir }}/data/gitea-repositories"
   service:
     REGISTER_EMAIL_CONFIRM: false
     ENABLE_NOTIFY_MAIL: false
@@ -79,8 +98,7 @@ gitea_cfg:
   repository.signing:
     DEFAULT_TRUST_MODEL: committer
   security:
-    INSTALL_LOCK: true
-    INTERNAL_TOKEN: "{{ inventory_hostname | hash('sha256') | hash('sha256') }}"
+    INSTALL_LOCK: false
     PASSWORD_HASH_ALGO: pbkdf2
 
 ## ----------------
