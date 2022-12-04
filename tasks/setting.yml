@@ -23,7 +23,7 @@
     group: "{{ gitea_user }}"
     mode: "0660"
     create: true
-    marker: ";; {mark} ANSIBLE MANAGED BLOCK"
+    marker: ;; {mark} ANSIBLE MANAGED BLOCK
     block: |
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; General Settings

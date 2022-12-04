@@ -4,5 +4,5 @@ gitea_install_dir: /usr/local/sbin
 gitea_config_dir: /etc/gitea
 gitea_work_dir: /var/lib/gitea
 
-gitea_app_name: "Gitea (Git with a cup of tea)"
+gitea_app_name: Gitea (Git with a cup of tea)
 gitea_mode: prod

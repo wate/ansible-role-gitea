@@ -11,7 +11,7 @@
       block:
         - name: Get generated INTERNAL_TOKEN
           ansible.builtin.command:
-            cmd: "cat {{ gitea_work_dir }}/internal_token"
+            cmd: cat {{ gitea_work_dir }}/internal_token
             removes: "{{ gitea_work_dir }}/internal_token"
           register: internal_token_result
           changed_when: false

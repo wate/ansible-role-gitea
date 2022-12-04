@@ -4,7 +4,7 @@ gitea_version: latest
 ## ----------------
 ## Giteaのアプリケーション名
 ## ----------------
-gitea_app_name: "Gitea (Git with a cup of tea)"
+gitea_app_name: Gitea (Git with a cup of tea)
 ## ----------------
 ## Giteaの動作モード
 ## 設定値: dev / prod / test
@@ -28,7 +28,6 @@ gitea_lfs_jwt_secret:
 ## ※未指定の場合はトークンが自動生成されます
 ## ----------------
 gitea_secret_key:
-
 ## ----------------
 ## Giteaの設定
 ##
