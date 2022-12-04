@@ -11,7 +11,7 @@ gitea_app_name: Gitea (Git with a cup of tea)
 ## ----------------
 gitea_mode: prod
 
-gitea_port: 3001
+gitea_port: 3000
 
 ## ----------------
 ## Giteaの「INTERNAL_TOKEN」の設定値
