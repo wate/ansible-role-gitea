@@ -11,8 +11,6 @@ gitea_app_name: Gitea (Git with a cup of tea)
 ## ----------------
 gitea_mode: prod
 
-gitea_port: 3000
-
 ## ----------------
 ## Giteaの「INTERNAL_TOKEN」の設定値
 ## ※未指定の場合はトークンが自動生成されます
@@ -55,8 +53,8 @@ gitea_cfg:
   server:
     # # 設定値: http / https / http+unix / fcgi / fcgi+unix
     # PROTOCOL: http
-    HTTP_PORT: "{{ gitea_port }}"
-    LOCAL_ROOT_URL: http://localhost:{{ gitea_port }}/
+    HTTP_PORT: 3000
+    LOCAL_ROOT_URL: http://localhost:3000/
     SSH_DOMAIN: gitea.example.com
     DOMAIN: gitea.example.com
     ROOT_URL: http://gitea.example.com/
