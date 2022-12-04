@@ -1,33 +1,71 @@
 gitea
-=========
+=================
 
-A brief description of the role goes here.
+setup gitea
 
-Requirements
-------------
+OS Platform
+-----------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Debian
+
+- bullseye
+- buster
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### `gitea_version`
 
-Dependencies
-------------
+### `gitea_app_name`
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Giteaのアプリケーション名
+
+### `gitea_mode`
+
+Giteaの動作モード  
+設定値: dev / prod / test
+
+### `gitea_port`
+
+### `gitea_internal_token`
+
+Giteaの「INTERNAL_TOKEN」の設定値  
+※未指定の場合はトークンが自動生成されます
+
+### `gitea_lfs_jwt_secret`
+
+Giteaの「LFS_JWT_SECRET」の設定  
+※未指定の場合はトークンが自動生成されます
+
+### `gitea_secret_key`
+
+Giteaの「SECRET_KEY」の設定  
+※未指定の場合はトークンが自動生成されます
+
+### `gitea_cfg`
+
+Giteaの設定  
+その他の設定については以下を参照  
+https://docs.gitea.io/en-us/config-cheat-sheet/  
+サンプルについては以下を参照  
+https://github.com/go-gitea/gitea/blob/main/custom/conf/app.example.ini
+
+### `gitea_service_extra_cfg`
+
+Giteaのサービス設定  
+※設定のサンプルについては以下を参照  
+https://github.com/go-gitea/gitea/blob/main/contrib/systemd/gitea.service
 
 Example Playbook
-----------------
+--------------
 
-```yml
+```yaml
 - hosts: servers
   roles:
     - role: gitea
 ```
 
 License
--------
+--------------
 
 Apache License 2.0
