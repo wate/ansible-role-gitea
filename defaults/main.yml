@@ -7,7 +7,7 @@ gitea_version: latest
 gitea_app_name: "Gitea (Git with a cup of tea)"
 ## ----------------
 ## Giteaの動作モード
-## 設定値：dev OR prod OR test
+## 設定値: dev / prod / test
 ## ----------------
 gitea_mode: prod
 
@@ -39,19 +39,19 @@ gitea_secret_key:
 ## ----------------
 gitea_cfg:
   database:
-    # mysql / postgres / sqlite3 / mssql
+    # 設定値: mysql / postgres / sqlite3 / mssql
     DB_TYPE: mysql
     HOST: 127.0.0.1:3306
     NAME: gitea
     USER: gitea
-    PASSWD: gitea_password
+    PASSWD: ""
     # MySQL Database only
     CHARSET: utf8mb4
     # SQLite only
-    SSL_MODE: false
     PATH: "{{ gitea_work_dir }}/data/gitea.db"
     # PostgreSQL Database only
-    SCHEMA: public
+    SSL_MODE: false
+    SCHEMA: ""
     LOG_SQL: false
   server:
     HTTP_PORT: "{{ gitea_port }}"
@@ -62,27 +62,77 @@ gitea_cfg:
     DISABLE_SSH: false
     SSH_PORT: 22
     LFS_START_SERVER: true
+    # ローカルモードを有効にする
     OFFLINE_MODE: false
   mailer:
     ENABLED: false
+    # SEND_BUFFER_LEN: 100
+    # # 設定値: smtp / smtps / smtp+starttls / smtp+unix / sendmail / dummy
+    # PROTOCOL:
+    # # SMTPホスト
+    # SMTP_ADDR:
+    # SMTP_PORT:
+    # ENABLE_HELO: true
+    # HELO_HOSTNAME:
+    # FORCE_TRUST_SERVER_CERT: false
+    # USE_CLIENT_CERT: false
+    # CLIENT_CERT_FILE: custom/mailer/cert.pem
+    # CLIENT_KEY_FILE: custom/mailer/key.pem
+    # # メール送信者
+    # FROM:
+    # ENVELOPE_FROM:
+    # # SMTPユーザー名
+    # USER:
+    # # SMTPパスワード
+    # PASSWD:
+    # SEND_AS_PLAIN_TEXT: false
+    # SENDMAIL_PATH: sendmail
+    # SENDMAIL_ARGS:
+    # SENDMAIL_TIMEOUT: 5m
+    # SENDMAIL_CONVERT_CRLF: true
   repository:
     ROOT: "{{ gitea_work_dir }}/data/gitea-repositories"
+  # cache:
+  #   ENABLED: true
+  #   # 設定値: memory / redis / memcache / twoqueue
+  #   ADAPTER: memory
+  #   INTERVAL: 60
+  #   # For "redis" and "memcache"
+  #   # redis: network=tcp,addr=:6379,password=macaron,db=0,pool_size=100,idle_timeout=180
+  #   # memcache: `127.0.0.1:11211`
+  #   # twoqueue: `{"size":50000,"recent_ratio":0.25,"ghost_ratio":0.5}` or `50000`
+  #   HOST:
+  #   ITEM_TTL: 16h
   service:
+    # 登録にはメールによる確認が必要
     REGISTER_EMAIL_CONFIRM: false
+    # メール通知を有効にする
     ENABLE_NOTIFY_MAIL: false
+    # セルフ登録を無効にする
     DISABLE_REGISTRATION: false
+    # 外部サービスを使用した登録のみを許可
     ALLOW_ONLY_EXTERNAL_REGISTRATION: false
+    # 登録時のCAPTCHAを有効にする
     ENABLE_CAPTCHA: false
+    # ページ閲覧にサインインが必要
     REQUIRE_SIGNIN_VIEW: false
+    # デフォルトでメールアドレスを隠す
     DEFAULT_KEEP_EMAIL_PRIVATE: false
+    # デフォルトで組織の作成を許可
     DEFAULT_ALLOW_CREATE_ORGANIZATION: true
+    # デフォルトでタイムトラッキング有効
     DEFAULT_ENABLE_TIMETRACKING: true
-    NO_REPLY_ADDRESS: gitea.example.com
+    # メールを隠すときのドメイン
+    NO_REPLY_ADDRESS:
   picture:
+    # Gravatarを無効にする
     DISABLE_GRAVATAR: false
+    # フェデレーテッド・アバターを有効にする
     ENABLE_FEDERATED_AVATAR: true
   openid:
+    # OpenIDを使ったサインインを有効にする
     ENABLE_OPENID_SIGNIN: true
+    # OpenIDを使ったセルフ登録を有効にする
     ENABLE_OPENID_SIGNUP: true
   session:
     PROVIDER: file
@@ -99,6 +149,7 @@ gitea_cfg:
     DEFAULT_TRUST_MODEL: committer
   security:
     INSTALL_LOCK: false
+    # パスワードハッシュアルゴリズム
     PASSWORD_HASH_ALGO: pbkdf2
 
 ## ----------------
