@@ -14,7 +14,8 @@
             cmd: "cat {{ gitea_work_dir }}/internal_token"
             removes: "{{ gitea_work_dir }}/internal_token"
           register: internal_token_result
-        - name: set INTERNAL_TOKEN variable
+          changed_when: false
+        - name: Set INTERNAL_TOKEN variable
           ansible.builtin.set_fact:
             gitea_internal_token: "{{ internal_token_result.stdout }}"
     - name: Generate INTERNAL_TOKEN
