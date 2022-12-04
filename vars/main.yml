@@ -1,6 +1,8 @@
 ---
 gitea_user: git
-gitea_home: /opt/gitea
-gitea_root: "{{ gitea_home }}"
+gitea_install_dir: /usr/local/sbin
 gitea_config_dir: /etc/gitea
-gitea_working_dir: /var/lib/gitea
+gitea_work_dir: /var/lib/gitea
+
+gitea_app_name: "Gitea (Git with a cup of tea)"
+gitea_mode: prod

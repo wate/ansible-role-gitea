@@ -1,8 +1,45 @@
 ---
 - name: Add/update setting file
-  ansible.builtin.template:
-    src: app.ini.j2
+  ansible.builtin.blockinfile:
     dest: "{{ gitea_config_dir }}/app.ini"
     owner: root
     group: "{{ gitea_user }}"
     mode: "0660"
+    create: true
+    marker: ";; {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; General Settings
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      APP_NAME = {{ gitea_app_name }}
+      RUN_USER = {{ gitea_user }}
+      RUN_MODE = {{ gitea_mode }}
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      {% for section_name, section_config in gitea_cfg.items() %}
+      ;;;;;;;
+      [{{ section_name }}]
+      {% for option_name, option_value in section_config.items() %}
+      {% if option_value is boolean -%}
+      {% set option_value = option_value | ternary('true', 'false') %}
+      {% endif %}
+      {{ option_name }} = {{ option_value }}
+      {% endfor %}
+      {% endfor %}
+- name: check fail2ban config directory
+  ansible.builtin.stat:
+    path: /etc/fail2ban
+  register: fail2ban_config_dir_result
+- name: Add fail2ban setting
+  when: fail2ban_config_dir_result.stat.exists
+  block:
+    - name: Add filter file
+      ansible.builtin.copy:
+        src: fail2ban/filter/gitea.conf
+        dest: /etc/fail2ban/filter.d/gitea.conf
+        mode: "0644"
+    - name: Add jail file
+      ansible.builtin.copy:
+        src: fail2ban/jail/gitea.conf
+        dest: /etc/fail2ban/jail.d/gitea.conf
+        mode: "0644"

@@ -13,9 +13,7 @@
     password: "*"
 - name: Create install directory
   ansible.builtin.file:
-    path: "{{ gitea_home }}"
-    owner: "{{ gitea_user }}"
-    group: "{{ gitea_user }}"
+    path: "{{ gitea_install_dir }}"
     state: directory
     mode: "0755"
 - name: Create config directory
@@ -25,7 +23,7 @@
     group: "{{ gitea_user }}"
     state: directory
     mode: "0770"
-- name: Create working directory
+- name: Create work directory
   ansible.builtin.file:
     path: "{{ item }}"
     owner: "{{ gitea_user }}"
@@ -33,7 +31,7 @@
     state: directory
     mode: "750"
   loop:
-    - "{{ gitea_working_dir }}"
-    - "{{ gitea_working_dir }}/custom"
-    - "{{ gitea_working_dir }}/data"
-    - "{{ gitea_working_dir }}/log"
+    - "{{ gitea_work_dir }}"
+    - "{{ gitea_work_dir }}/custom"
+    - "{{ gitea_work_dir }}/data"
+    - "{{ gitea_work_dir }}/log"

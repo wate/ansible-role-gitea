@@ -19,9 +19,9 @@
 - name: Install packages
   ansible.builtin.import_tasks: package.yml
   tags: package
-# - name: Create/update setting
-#   ansible.builtin.import_tasks: setting.yml
-#   tags: setting
-# - name: Setup service
-#   ansible.builtin.import_tasks: service.yml
-#   tags: service
+- name: Create/update setting
+  ansible.builtin.import_tasks: setting.yml
+  tags: setting
+- name: Setup service
+  ansible.builtin.import_tasks: service.yml
+  tags: service

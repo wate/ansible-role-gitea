@@ -17,9 +17,9 @@
 - name: Install gitea
   ansible.builtin.get_url:
     url: https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}
-    dest: "{{ gitea_home }}/gitea"
+    dest: "{{ gitea_install_dir }}/gitea"
     checksum: sha256:https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}.sha256
     owner: "{{ gitea_user }}"
     group: "{{ gitea_user }}"
     mode: "0755"
-  # notify: restart gitea
+  notify: restart gitea
