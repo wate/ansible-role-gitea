@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: gitea
   author: yoshiaki tanaka
-  description: setup gitea
+  description: Setup gitea
   license: Apache
   min_ansible_version: "2.13"
   platforms:
