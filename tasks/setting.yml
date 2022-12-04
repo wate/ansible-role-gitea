@@ -16,9 +16,6 @@
 - name: Merge config variable
   ansible.builtin.set_fact:
     gitea_cfg: "{{ gitea_cfg | combine(token_config, recursive=True) }}"
-- name: Debug
-  ansible.builtin.debug:
-    var: gitea_cfg
 - name: Add/update setting file
   ansible.builtin.blockinfile:
     dest: "{{ gitea_config_dir }}/app.ini"

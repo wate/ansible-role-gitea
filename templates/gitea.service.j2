@@ -21,7 +21,10 @@ Environment=GITEA_WORK_DIR={{ gitea_work_dir}}
 ExecStart={{ gitea_install_dir }}/gitea web --config {{ gitea_config_dir }}/app.ini
 Restart=always
 RestartSec=2s
+
+### BEGIN Extra config
 {{ gitea_service_extra_cfg }}
+### END Extra config
 
 [Install]
 WantedBy=multi-user.target
