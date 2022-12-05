@@ -30,5 +30,7 @@
         - 127.0.0.1
 - name: Execute database migration
   ansible.builtin.command:
-    cmd: "{{ gitea_install_dir }}/gitea migrate"
+    cmd: "{{ gitea_install_dir }}/gitea migrate -c {{ gitea_config_dir }}/app.ini"
+  become: true
+  become_user: "{{ gitea_user }}"
   when: update_gitea_binary is changed
