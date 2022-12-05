@@ -43,6 +43,7 @@
       {{ option_name }} = {{ option_value }}
       {% endfor %}
       {% endfor %}
+  notify: restart gitea
 - name: check fail2ban config directory
   ansible.builtin.stat:
     path: /etc/fail2ban
