@@ -9,7 +9,6 @@ OS Platform
 ### Debian
 
 - bullseye
-- buster
 
 Role Variables
 --------------

@@ -13,7 +13,10 @@
         gitea_version: "{{ latest_releases.json.latest.version }}"
 - name: Set download file variable
   ansible.builtin.set_fact:
-    download_binary_file: gitea-{{ gitea_version }}-{{ ansible_facts['system'] | lower }}-{{ ansible_facts['kernel'].split('-')[-1] }}
+    download_binary_file: gitea-{{ gitea_version }}-{{ ansible_facts['system'] | lower }}-{{ architecture_files[ansible_facts['architecture']] }}
+  vars:
+    architecture_files:
+      x86_64: amd64
 - name: Install gitea
   ansible.builtin.get_url:
     url: https://dl.gitea.io/gitea/{{ gitea_version }}/{{ download_binary_file }}
