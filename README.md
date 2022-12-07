@@ -15,6 +15,8 @@ Role Variables
 
 ### `gitea_version`
 
+Giteaのバージョン
+
 ### `gitea_app_name`
 
 Giteaのアプリケーション名
