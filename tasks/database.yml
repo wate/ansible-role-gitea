@@ -33,4 +33,4 @@
     cmd: "{{ gitea_install_dir }}/gitea migrate -c {{ gitea_config_dir }}/app.ini"
   become: true
   become_user: "{{ gitea_user }}"
-  when: update_gitea_binary is changed
+  when: update_gitea is changed

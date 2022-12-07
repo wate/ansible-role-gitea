@@ -1,5 +1,5 @@
 ---
-- name: set gites_internal_token variables
+- name: Set gites_internal_token variables
   when: not gitea_internal_token
   block:
     - name: Check token file
