@@ -1,10 +1,34 @@
 ---
-- name: Set INTERNAL_TOKEN variable
-  ansible.builtin.import_tasks: setting/internal_token.yml
-- name: Set LFS_JWT_SECRET variable
-  ansible.builtin.import_tasks: setting/lfs_jwt_secret.yml
-- name: Set SECRET_KEY variable
-  ansible.builtin.import_tasks: setting/secret_key.yml
+- name: Generate INTERNAL_TOKEN token
+  ansible.builtin.import_tasks: setting/tokens/internal_token.yml
+  when: not gitea_internal_token
+- name: Add/update generated token file
+  ansible.builtin.template:
+    src: token.j2
+    dest: "{{ gitea_work_dir }}/internal_token"
+    mode: "0644"
+  vars:
+    token_value: "{{ gitea_internal_token }}"
+- name: Generate LFS_JWT_SECRET token
+  ansible.builtin.import_tasks: setting/tokens/lfs_jwt_secret.yml
+  when: not gitea_lfs_jwt_secret
+- name: Add/update generated token file
+  ansible.builtin.template:
+    src: token.j2
+    dest: "{{ gitea_work_dir }}/lfs_jwt_secret"
+    mode: "0644"
+  vars:
+    token_value: "{{ gitea_lfs_jwt_secret }}"
+- name: Generate SECRET_KEY token
+  ansible.builtin.import_tasks: setting/tokens/secret_key.yml
+  when: not gitea_secret_key
+- name: Add/update generated token file
+  ansible.builtin.template:
+    src: token.j2
+    dest: "{{ gitea_work_dir }}/secret_key"
+    mode: "0644"
+  vars:
+    token_value: "{{ gitea_secret_key }}"
 - name: Set token config variable
   ansible.builtin.set_fact:
     token_config:
