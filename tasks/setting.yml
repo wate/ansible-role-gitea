@@ -31,7 +31,7 @@
     token_value: "{{ gitea_secret_key }}"
 - name: Set token config variable
   ansible.builtin.set_fact:
-    token_config:
+    gitea_token_config:
       server:
         LFS_JWT_SECRET: "{{ gitea_lfs_jwt_secret }}"
       security:
@@ -39,34 +39,14 @@
         SECRET_KEY: "{{ gitea_secret_key }}"
 - name: Merge config variable
   ansible.builtin.set_fact:
-    gitea_cfg: "{{ gitea_cfg | combine(token_config, recursive=True) }}"
+    gitea_cfg: "{{ gitea_cfg | combine(gitea_token_config, recursive=True) }}"
 - name: Add/update setting file
-  ansible.builtin.blockinfile:
+  ansible.builtin.template:
+    src: app.ini.j2
     dest: "{{ gitea_config_dir }}/app.ini"
     owner: root
     group: "{{ gitea_user }}"
     mode: "0660"
-    create: true
-    marker: ;; {mark} ANSIBLE MANAGED BLOCK
-    block: |
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; General Settings
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      APP_NAME = {{ gitea_app_name }}
-      RUN_USER = {{ gitea_user }}
-      RUN_MODE = {{ gitea_mode }}
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      {% for section_name, section_config in gitea_cfg.items() %}
-      ;;;;;;;
-      [{{ section_name }}]
-      {% for option_name, option_value in section_config.items() %}
-      {% if option_value is boolean -%}
-      {% set option_value = option_value | ternary('true', 'false') %}
-      {% endif %}
-      {{ option_name }} = {{ option_value }}
-      {% endfor %}
-      {% endfor %}
   notify: restart gitea
 - name: check fail2ban config directory
   ansible.builtin.stat:

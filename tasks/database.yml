@@ -1,33 +1,10 @@
 ---
-- name: Install database adapter(MySQL)
-  ansible.builtin.apt:
-    name:
-      - mariadb-client
-      - mariadb-server
-      - libmariadb-dev
-      - python{{ ansible_facts.distribution_major_version is version('11', '>=') | ternary('3', '') }}-pymysql
+- name: Setup database setting
+  ansible.builtin.include_tasks: database/{{ gitea_cfg['database']['DB_TYPE'] }}.yml
   when: |
     gitea_cfg['database']['HOST'].startswith('localhost:')
     or
     gitea_cfg['database']['HOST'].startswith('127.0.0.1:')
-- name: Localhost database setting
-  when: gitea_cfg['database']['DB_TYPE']  == 'mysql'
-  block:
-    - name: Create database
-      community.mysql.mysql_db:
-        name: "{{ gitea_cfg['database']['NAME'] }}"
-        encoding: "{{ gitea_cfg['database']['CHARSET'] }}"
-        login_unix_socket: "{{ mariadb_unix_socket_path | default('/run/mysqld/mysqld.sock') }}"
-    - name: Create database user
-      community.mysql.mysql_user:
-        name: "{{ gitea_cfg['database']['USER'] }}"
-        password: "{{ gitea_cfg['database']['PASSWD'] }}"
-        host: "{{ item }}"
-        priv: "{{ gitea_cfg['database']['NAME'] }}.*:ALL"
-        login_unix_socket: "{{ mariadb_unix_socket_path | default('/run/mysqld/mysqld.sock') }}"
-      loop:
-        - localhost
-        - 127.0.0.1
 - name: Execute database migration
   ansible.builtin.command:
     cmd: "{{ gitea_install_dir }}/gitea migrate -c {{ gitea_config_dir }}/app.ini"

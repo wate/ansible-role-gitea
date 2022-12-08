@@ -1,0 +1,20 @@
+---
+- name: Install database dependency packages
+  ansible.builtin.apt:
+    name:
+      - postgresql
+      - python3-psycopg2
+      - acl
+- name: Setup database
+  become: true
+  become_user: postgres
+  block:
+    - name: Create database
+      community.postgresql.postgresql_db:
+        name: "{{ gitea_cfg['database']['NAME'] }}"
+        encoding: "{{ gitea_cfg['database']['CHARSET'] }}"
+    - name: Create database user
+      community.postgresql.postgresql_user:
+        name: "{{ gitea_cfg['database']['USER'] }}"
+        password: "{{ gitea_cfg['database']['PASSWD'] }}"
+        db: "{{ gitea_cfg['database']['NAME'] }}"
