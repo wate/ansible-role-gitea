@@ -1,5 +1,5 @@
 ---
-- name: Install database dependency packages
+- name: Install database dependency packages(MariaDB)
   ansible.builtin.apt:
     name:
       - mariadb-client
