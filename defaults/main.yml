@@ -46,11 +46,12 @@ gitea_cfg:
     USER: gitea
     PASSWD: ""
     # MySQL Database only
+    SSL_MODE: false
     CHARSET: utf8mb4
     # SQLite only
     PATH: "{{ gitea_work_dir }}/data/gitea.db"
     # PostgreSQL Database only
-    SSL_MODE: false
+    # SSL_MODE: require
     SCHEMA: ""
     LOG_SQL: false
   server:
