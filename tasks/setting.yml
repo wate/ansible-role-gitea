@@ -48,7 +48,7 @@
     group: "{{ gitea_user }}"
     mode: "0660"
   notify: restart gitea
-- name: check fail2ban config directory
+- name: Check fail2ban config directory
   ansible.builtin.stat:
     path: /etc/fail2ban
   register: fail2ban_config_dir_result

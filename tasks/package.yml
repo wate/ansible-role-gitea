@@ -1,5 +1,5 @@
 ---
-- name: get gitea latest version
+- name: Get gitea latest version
   when: gitea_version == 'latest'
   block:
     - name: Get latest release
