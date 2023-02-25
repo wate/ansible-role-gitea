@@ -1,7 +1,7 @@
 gitea
 =================
 
-Setup gitea
+Setup gitea(work in progress)
 
 OS Platform
 -----------------
