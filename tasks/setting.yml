@@ -47,7 +47,7 @@
     owner: root
     group: "{{ gitea_user }}"
     mode: "0660"
-  notify: restart gitea
+  notify: Restart gitea
 - name: Check fail2ban config directory
   ansible.builtin.stat:
     path: /etc/fail2ban

@@ -26,4 +26,4 @@
     group: "{{ gitea_user }}"
     mode: "0755"
   register: update_gitea
-  notify: restart gitea
+  notify: Restart gitea
