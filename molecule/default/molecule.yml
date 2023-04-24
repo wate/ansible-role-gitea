@@ -20,10 +20,6 @@ platforms:
     pre_build_image: true
     # driver:vagrant
     box: wate/debian-11
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
 provisioner:
   name: ansible
   options:
@@ -38,7 +34,6 @@ provisioner:
 scenario:
   test_sequence:
     - dependency
-    - lint
     - cleanup
     - destroy
     - syntax
@@ -50,25 +45,25 @@ scenario:
     - verify
     - cleanup
     - destroy
-  # create_sequence:
-  #   - dependency
-  #   - create
-  #   - prepare
-  # check_sequence:
-  #   - dependency
-  #   - cleanup
-  #   - destroy
-  #   - create
-  #   - prepare
-  #   - converge
-  #   - check
-  #   - destroy
-  # converge_sequence:
-  #   - dependency
-  #   - create
-  #   - prepare
-  #   - converge
-  # destroy_sequence:
-  #   - dependency
-  #   - cleanup
-  #   - destroy
+#   create_sequence:
+#     - dependency
+#     - create
+#     - prepare
+#   check_sequence:
+#     - dependency
+#     - cleanup
+#     - destroy
+#     - create
+#     - prepare
+#     - converge
+#     - check
+#     - destroy
+#   converge_sequence:
+#     - dependency
+#     - create
+#     - prepare
+#     - converge
+#   destroy_sequence:
+#     - dependency
+#     - cleanup
+#     - destroy
