@@ -1,0 +1,3 @@
+---
+common_apt_default_release_backports: false
+mariadb_append_mroonga_repository: false
