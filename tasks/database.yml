@@ -8,6 +8,7 @@
 - name: Execute database migration
   ansible.builtin.command:
     cmd: "{{ gitea_install_dir }}/gitea migrate -c {{ gitea_config_dir }}/app.ini"
+    chdir: "{{ gitea_work_dir }}"
   become: true
   become_user: "{{ gitea_user }}"
   when: update_gitea is changed

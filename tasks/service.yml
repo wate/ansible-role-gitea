@@ -6,7 +6,7 @@
     mode: "0644"
   notify: Restart gitea
 - name: Service gitea is active and enabled on system startup
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     name: gitea
     state: started
     enabled: true
