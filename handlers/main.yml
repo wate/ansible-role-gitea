@@ -1,11 +1,11 @@
 ---
 - name: Restart gitea
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     daemon_reload: true
     state: restarted
     name: gitea
 - name: Reload gitea
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     daemon_reload: true
     state: reloaded
     name: gitea
