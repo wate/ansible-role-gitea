@@ -1,0 +1,11 @@
+fcgi
+gitea
+mariadb
+mroonga
+mssql
+mysql
+postgres
+postgresql
+redis
+sqlite
+twoqueue
